@@ -1,0 +1,16 @@
+{
+  "name": "waifu-reminder",
+  "version": "1.0.0",
+  "description": "reminder for the mudamaid discord bot",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.4.1",
+    "node-cron": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Lucas Clark",
+  "license": "ISC"
+}
