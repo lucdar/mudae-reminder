@@ -47,7 +47,7 @@ remindObj = {
         "message":`<@&${roleID}>, $h and $w have refreshed.`,
     },
     "marry": {
-        "cron":"56 1-22/3 * * *",
+        "cron":"56 */3 * * *",
         "commands":"cooldown for marrying after rolling for a waifu",
         "message":`<@&${roleID}>, marry cooldown has reset.`,
     },
