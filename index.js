@@ -15,25 +15,25 @@ if (token == "TOKEN GOES HERE" ||
 
 let remindObj = {
     "roulette": {
-        "cron":`&${minuteOffset} * * * *`,
+        "cron":`${minuteOffset} * * * *`,
         "message":`<@&${roleID}>, roulette cooldown has reset. ($m, $w, $h, etc.)`,
     },
     "marry": {
-        "cron":`&${minuteOffset} 2/3 * * *`,
+        "cron":`${minuteOffset} 2-23/3 * * *`,
         "message":`<@&${roleID}>, claim cooldown has reset.`,
     },
-    /* "pokemonSlots": {
-        "cron":"0 0/2 * * *",
+    "pokemonSlots": {
+        "cron":"0 */2 * * *",
         "message":`<@&${roleID}>, pokeslots has reset. ($p)`,
-    }, */
+    },
     "dailies": {
         "cron":"0 12 * * *",
         "message":`<@&${roleID}>, dailies have reset. ($daily, $dk)`,
     },
-    /* "debug": {
-        "cron": "0/5 * * * * *",
-        "message":", this is a test"
-    } */
+    // "debug": {
+    //     "cron": "*/5 * * * * *",
+    //     "message":"<@&${roleID}>, this is a test",
+    // }, 
 }
 
 //init discord.js
@@ -42,6 +42,7 @@ client.login(token)
 
 client.on("ready", () => {
     console.log(`${client.user.tag} is now online.`)
+    console.log("Attempting to schedule reminders...")
     client.channels.fetch(channelID).then((channel) => {
         channel.send("mudae-reminder is now online")
     })
