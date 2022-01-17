@@ -1,7 +1,8 @@
 {
-  "name": "waifu-reminder",
+  "name": "mudae-reminder",
   "version": "1.0.0",
   "description": "reminder for the mudamaid discord bot",
+  "type": "module",
   "main": "index.js",
   "dependencies": {
     "discord.js": "^12.4.1",

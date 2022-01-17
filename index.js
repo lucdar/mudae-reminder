@@ -1,16 +1,17 @@
 //libraries
-const { DiscordAPIError } = require("discord.js")
-var cron = require('node-cron')
+import Discord from "discord.js"
+import { exit } from "process"
+import cron from "node-cron"
 
-//constants
-//TODO: imoprt these from a file? json? module?
-//      secure private key somehow? allow for opening repo to public?
-{/*private key in here :)*/
-    var privateKey = "NzM2Mzc1NDc3NzY1MTQ0NTg2.Xxt5Gw.3fc3b4UdCxQVwPSLvYMMNsd312Y"
+//constants from config
+import { token, channelID, roleID, minuteOffset } from "./config.js"
+
+if (token == "TOKEN GOES HERE" ||
+    channelID == "CHANNNEL ID" ||   
+    roleID == "ROLE ID") {
+        console.error("Please configure config.js before running")
+        exit()
 }
-let channelID = "753500455497105438"
-let roleID = "752034309560467488"
-let minuteOffset = '10'
 
 let remindObj = {
     "roulette": {
@@ -29,22 +30,20 @@ let remindObj = {
         "cron":"0 12 * * *",
         "message":`<@&${roleID}>, dailies have reset. ($daily, $dk)`,
     },
-    /* "debug - every second": {
-        "cron": "* * * * * *",
+    /* "debug": {
+        "cron": "0/5 * * * * *",
         "message":", this is a test"
     } */
 }
 
-//Init. discord.js
-const Discord = require("discord.js")
-const { send } = require("process")
+//init discord.js
 const client = new Discord.Client()
-client.login(privateKey)
+client.login(token)
 
 client.on("ready", () => {
-    console.log(`${client.user.tag} Bot is now online.`)
+    console.log(`${client.user.tag} is now online.`)
     client.channels.fetch(channelID).then((channel) => {
-        channel.send("mudae-reminder online")
+        channel.send("mudae-reminder is now online")
     })
     //schedule reminders
     for (let reminder in remindObj){
@@ -52,11 +51,14 @@ client.on("ready", () => {
             client.channels.fetch(channelID)
                 .then((channel) => {
                     channel.send(remindObj[reminder].message)
+                    console.log(`${reminder} reminder sent`)
                 })
                 .catch(console.error)
         }, {
+            //TODO: timezone configuration
             "timezone":"America/Los_Angeles"
         })
-        console.log(`${remindObj[reminder].cron}`)
+        console.log(`${reminder} reminder scheduled:`)
+        console.log(`${remindObj[reminder]}`)
     }
 })
